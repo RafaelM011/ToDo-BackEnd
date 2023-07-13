@@ -5,7 +5,7 @@ const register = (db,bcrypt) => (req,res) => {
     db.transaction( trx => {
         trx.insert({
             username,
-            hash
+            hash    
         })
         .into('login')
         .returning('*')
@@ -22,6 +22,7 @@ const register = (db,bcrypt) => (req,res) => {
         .then(trx.commit)
         .catch(trx.rollback)
     })
+    .catch(err => res.status(400).json('Username or Email already exists'))
 };
 
 export default register;

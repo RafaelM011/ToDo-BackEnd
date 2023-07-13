@@ -35,7 +35,7 @@ server.get("/", (req, res) => res.json("Server is listening"));
 //Register new user
 server.post("/register", register(db, bcrypt));
 //SignIn
-server.get("/signin", signIn(db, bcrypt));
+server.post("/signin", signIn(db, bcrypt));
 //Add new todo
 server.put("/addtodo", addTodo(db));
 //Remove todo
