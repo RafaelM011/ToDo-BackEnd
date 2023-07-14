@@ -39,7 +39,7 @@ server.post("/signin", signIn(db, bcrypt));
 //Get user's todos
 server.get("/todos/:username", getTodo(db))
 //Toggle users's todos
-server.post("todos/:username/toggletodo", toggleTodo(db))
+server.post("/todos/:username/toggletodo", toggleTodo(db))
 //Add new todo
 server.put("/todos/:username/addtodo", addTodo(db));
 //Remove todo

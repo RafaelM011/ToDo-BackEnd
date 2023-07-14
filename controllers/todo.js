@@ -4,6 +4,7 @@ const getTodo = (db) => (req,res) => {
     db("todos")
     .select("*")
     .where({username})
+    .orderBy("id", "asc")
     .then( data => {
         res.json(data)
     })
@@ -22,6 +23,7 @@ const addTodo = (db) => (req,res) => {
         db("todos")
         .returning('*')
         .where({username})
+        .orderBy("id", "asc")
         .then(data => {
             res.status(200).json(data);
         })
@@ -44,6 +46,7 @@ const removeTodo = (db) => (req,res) => {
     .then( () => {
         db('todos')
         .where({username})
+        .orderBy("id", "asc")
         .returning('*')
         .then( data => {
             res.status(200).json(data)
@@ -69,6 +72,7 @@ const toggleTodo = (db) => (req,res) => {
         db("todos")
         .select("*")
         .where({username})
+        .orderBy("id", "asc")
         .then( data => {
             res.json(data)
         })
