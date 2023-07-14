@@ -1,3 +1,17 @@
+const getTodo = (db) => (req,res) => {
+    const {username} = req.params;
+
+    db("todos")
+    .select("*")
+    .where({username})
+    .then( data => {
+        res.json(data)
+    })
+    .catch( err => {
+        res.json(err)
+    })
+}
+
 const addTodo = (db) => (req,res) => {
     const {username, description} = req.body;
 
@@ -42,4 +56,4 @@ const removeTodo = (db) => (req,res) => {
     })
 }
 
-export {addTodo, removeTodo}
+export { getTodo,addTodo, removeTodo}
