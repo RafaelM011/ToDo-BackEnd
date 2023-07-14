@@ -13,7 +13,8 @@ const getTodo = (db) => (req,res) => {
 }
 
 const addTodo = (db) => (req,res) => {
-    const {username, description} = req.body;
+    const { username } = req.params;
+    const { description } = req.body;
 
     db('todos')
     .insert({username, description})
@@ -34,7 +35,8 @@ const addTodo = (db) => (req,res) => {
 }
 
 const removeTodo = (db) => (req,res) => {
-    const {id, username} = req.body
+    const { username } = req.params
+    const { id } = req.body
 
     db('todos')
     .where({id})
@@ -56,4 +58,27 @@ const removeTodo = (db) => (req,res) => {
     })
 }
 
-export { getTodo,addTodo, removeTodo}
+const toggleTodo = (db) => (req,res) => {
+    const { username } = req.params
+    const { id, status } = req.body
+
+    db("todos")
+    .where({id})
+    .update({status})
+    .then( () => {
+        db("todos")
+        .select("*")
+        .where({username})
+        .then( data => {
+            res.json(data)
+        })
+        .catch( err => {
+            res.json(err)
+        })
+    })
+    .catch( err => {
+        res.json(err)
+    })
+}
+
+export { getTodo,addTodo, removeTodo, toggleTodo}
